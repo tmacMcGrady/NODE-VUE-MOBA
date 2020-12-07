@@ -3,9 +3,9 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import './styles.scss'
 import router from './router'
-
+import http from "./http"
 Vue.use(ElementUI)
-
+Vue.prototype.$http = http
 Vue.config.productionTip = false
 
 new Vue({
