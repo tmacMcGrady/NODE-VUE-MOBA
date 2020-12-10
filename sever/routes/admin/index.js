@@ -1,29 +1,39 @@
 
 module.exports = app =>{
   const express = require("express")
-  const router = express.Router()
-  const Category = require("../../models/category")
-  router.get('/categories', async (req,res)=>{
-    const model = await Category.find().populate('parent').limit(10)
+  const router = express.Router({
+    mergeParams:true // 这里是将参数合并
+  })
+  // const Category = require("../../models/category")
+  router.get('/', async (req,res)=>{
+    const queryOptions = {}
+    if(req.Model.modelName === "Category"){
+      queryOptions.populate = 'parent'
+    }
+    const model = await req.Model.find().setOptions(queryOptions).limit(10)
     res.send(model)
   })
-  router.get('/categories/:id', async (req,res)=>{
-    const model = await Category.findById(req.params.id)
+  router.get('/:id', async (req,res)=>{
+    const model = await req.Model.findById(req.params.id)
     res.send(model)
   })
-  router.post('/categories', async (req,res)=>{
-    const items = await Category.create(req.body)
+  router.post('/', async (req,res)=>{
+    const items = await req.Model.create(req.body)
     res.send(items)
   })
-  router.put('/categories/:id', async (req,res)=>{
-    const items = await Category.findByIdAndUpdate(req.params.id,req.body)
+  router.put('/:id', async (req,res)=>{
+    const items = await req.Model.findByIdAndUpdate(req.params.id,req.body)
     res.send(items)
   })
-  router.delete('/categories/:id', async (req,res)=>{
-    await Category.findByIdAndDelete(req.params.id,req.body)
+  router.delete('/:id', async (req,res)=>{
+    await req.Model.findByIdAndDelete(req.params.id,req.body)
     res.send({
       success:true
     })
   })
-  app.use('/admin/api',router)
+  app.use('/admin/api/rest/:resource',async (req, res, next)=>{
+    const modelName = require('inflection').classify(req.params.resource)
+    req.Model = require(`../../models/${modelName}`)
+    next()
+  },router)
 }

@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import CategoryEditer from '../views/CategoryEditer'
 import CategoryList from '../views/CategoryList'
+
+import ItemEditer from '../views/ItemEdit'
+import ItemList from '../views/ItemList'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,6 +26,19 @@ const routes = [
       {
         path:'/categories/list',
         component: CategoryList
+      },
+      {
+        path:'/items/create',
+        component: ItemEditer
+      },
+      {
+        path:'/items/edit/:id', //两个页面运用同一个组件
+        component: ItemEditer, 
+        props:true //能在这个组价中直接使用id作为props
+      },
+      {
+        path:'/items/list',
+        component: ItemList
       }
     ]
   }
