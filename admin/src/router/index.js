@@ -6,6 +6,9 @@ import CategoryList from '../views/CategoryList'
 
 import ItemEditer from '../views/ItemEdit'
 import ItemList from '../views/ItemList'
+
+import HeroEditer from '../views/HeroEdit'
+import HeroList from '../views/HeroList'
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,6 +42,19 @@ const routes = [
       {
         path:'/items/list',
         component: ItemList
+      },
+      {
+        path:'/heroes/create',
+        component: HeroEditer
+      },
+      {
+        path:'/heroes/edit/:id', //两个页面运用同一个组件
+        component: HeroEditer, 
+        props:true //能在这个组价中直接使用id作为props
+      },
+      {
+        path:'/heroes/list',
+        component: HeroList
       }
     ]
   }
