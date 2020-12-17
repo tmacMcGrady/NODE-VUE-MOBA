@@ -89,22 +89,24 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane name="skills" label="技能">
-          <el-button type="text" @click="model.skills.push({})"><i class="el-icon-plus">添加技能</i></el-button>
+          <el-button type="text" @click="model.skills.push({})"
+            ><i class="el-icon-plus">添加技能</i></el-button
+          >
           <el-row type="flex" style="flex-wrap:wrap">
-            <el-col :md="12"  v-for="(item,i) in model.skills" :key="i">
+            <el-col :md="12" v-for="(item, i) in model.skills" :key="i">
               <el-form-item label="名称">
                 <el-input v-model="item.name"></el-input>
               </el-form-item>
               <el-form-item label="图标">
                 <el-upload
-              class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
-              :show-file-list="false"
-              :on-success="res => $set(item,'icon',res.url)"
-            >
-              <img v-if="item.icon" :src="item.icon" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+                  class="avatar-uploader"
+                  :action="$http.defaults.baseURL + '/upload'"
+                  :show-file-list="false"
+                  :on-success="(res) => $set(item, 'icon', res.url)"
+                >
+                  <img v-if="item.icon" :src="item.icon" class="avatar" />
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
               <el-form-item label="描述">
                 <el-input type="textarea" v-model="item.description"></el-input>
@@ -113,7 +115,12 @@
                 <el-input type="textarea" v-model="item.tips"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button size="small" type="danger" @click="model.skills.splice(i,1)">删除</el-button>
+                <el-button
+                  size="small"
+                  type="danger"
+                  @click="model.skills.splice(i, 1)"
+                  >删除</el-button
+                >
               </el-form-item>
             </el-col>
           </el-row>
@@ -199,13 +206,13 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 5rem;
+  min-width: 5rem;
   height: 5rem;
   line-height: 5rem;
   text-align: center;
 }
 .avatar {
-  width: 5rem;
+  min-width: 5rem;
   height: 5rem;
   display: block;
 }

@@ -12,6 +12,9 @@ import HeroList from '../views/HeroList'
 
 import ArticleEditer from '../views/ArticleEdit'
 import ArticleList from '../views/ArticleList'
+
+import AdEditer from '../views/AdEditer'
+import AdList from '../views/AdList'
 Vue.use(VueRouter)
 
 const routes = [
@@ -71,6 +74,18 @@ const routes = [
       {
         path:'/articles/list',
         component: ArticleList
+      },{
+        path:'/ads/create',
+        component: AdEditer
+      },
+      {
+        path:'/ads/edit/:id', //两个页面运用同一个组件
+        component: AdEditer, 
+        props:true //能在这个组价中直接使用id作为props
+      },
+      {
+        path:'/ads/list',
+        component: AdList
       }
     ]
   }
